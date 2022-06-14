@@ -18,9 +18,8 @@ const (
 var ErrInvalidString = errors.New("invalid string")
 
 type symbol struct {
-	value   rune
-	repeat  int
-	isDigit bool
+	value  rune
+	repeat int
 }
 
 func Unpack(source string) (string, error) {
@@ -81,9 +80,8 @@ func toSymbolSlice(source string) ([]*symbol, error) {
 		index++
 		if index > len(runes)-1 {
 			result = append(result, &symbol{
-				value:   effectiveRune,
-				repeat:  -1,
-				isDigit: unicode.IsDigit(effectiveRune),
+				value:  effectiveRune,
+				repeat: -1,
 			})
 			break
 		}
@@ -100,9 +98,8 @@ func toSymbolSlice(source string) ([]*symbol, error) {
 		}
 
 		result = append(result, &symbol{
-			value:   effectiveRune,
-			repeat:  repeatCount,
-			isDigit: unicode.IsDigit(effectiveRune),
+			value:  effectiveRune,
+			repeat: repeatCount,
 		})
 	}
 
