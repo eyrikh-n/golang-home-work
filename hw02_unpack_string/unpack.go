@@ -35,12 +35,13 @@ func Unpack(source string) (string, error) {
 
 	var result strings.Builder
 	for _, s := range symbols {
-		if s.repeat == 0 {
-			// skip
-		} else if s.repeat > 0 {
+		switch {
+		case s.repeat > 0:
 			result.WriteString(strings.Repeat(string(s.value), s.repeat))
-		} else {
+		case s.repeat < 0:
 			result.WriteRune(s.value)
+		default:
+			// skip
 		}
 	}
 
@@ -73,7 +74,7 @@ func toSymbolSlice(source string) ([]*symbol, error) {
 			index++
 		case runeKindDigit:
 			return nil, ErrInvalidString
-		default:
+		case runeKindLetter:
 			effectiveRune = currentRune
 		}
 
